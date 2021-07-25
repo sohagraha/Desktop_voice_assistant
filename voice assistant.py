@@ -4,6 +4,7 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 import os
+import ctypes
 import smtplib
 
 engine = pyttsx3.init('sapi5')
@@ -92,11 +93,11 @@ if __name__ == "__main__":
             speak("Playing Video...")
             os.startfile(os.path.join(video_dir, videos[0]))
 
-        elif 'made you' in query or 'create you' in query or 'developed you' in query:
+        elif 'made you' in query or 'created you' in query or 'developed you' in query:
             pic_dir = 'F:\\My Pic'
             pic = os.listdir(pic_dir)
             webbrowser.open("https://rashed-abir.web.app/")
-            os.startfile(os.path.join(pic_dir, pic[128]))
+            os.startfile(os.path.join(pic_dir, pic[131]))
             speak("its Rashed Khan")
 
         elif 'the time' in query:
@@ -130,9 +131,57 @@ if __name__ == "__main__":
             except Exception as e:
             # print(e)
                 speak("I am not able to send this email")
+        
+        elif 'how are you' in query:
+            speak("I am fine, Thank you")
+            speak("How are you, Sir")
+ 
+        elif 'fine' in query or "good" in query:
+            speak("It's good to know that your fine")
 
-        elif 'friday' in query:
+        elif 'friday' in query or 'are you here' in query or 'where are you' in query:
             speak("i am here! Please tell me how may I help you sir?")
+        
+        elif "what's your name" in query or "What is your name" in query:
+            speak("My friends call me friday sir!")
+
+        elif 'search' in query:
+            query = query.replace("search", "")
+            speak(f"searching {query}")     
+            webbrowser.open(f"https://www.google.com/search?q={query}")
+
+        elif 'facebook' in query or 'open facebook' in query:
+            speak("Openning Facebook")        
+            webbrowser.open("https://www.facebook.com/")
+
+        elif "who i am" in query:
+            speak("If you talk then definitely your human.")
+ 
+        elif "why you came to world" in query:
+            speak("Thanks to Rashed Khan. further It's a secret")
+
+        elif 'is love' in query:
+            speak("It is 7th sense that destroy all other senses")
+
+        elif 'lock window' in query:
+            speak("locking the device")
+            ctypes.windll.user32.LockWorkStation()
+
+        elif 'today' in query:
+            today = datetime.date.today().strftime("%A, %d-%B-%Y")
+            speak(f"today is {today}")
+
+        elif 'yesterday' in query:
+            today = datetime.date.today()
+            yesterday = today - datetime.timedelta(days = 1)
+            y = yesterday.strftime("%A, %d-%B-%Y")
+            speak(f"yesterday was {y}")
+
+        elif 'tomorrow' in query:
+            today = datetime.date.today()
+            tomorrow = today + datetime.timedelta(days = 1)
+            t = tomorrow.strftime("%A, %d-%B-%Y")
+            speak(f"Tomorow is {t}")
     
         elif 'exit' in query or 'bye' in query or 'see you later' in query:
             speak("Thanks for giving me your time sir.")
