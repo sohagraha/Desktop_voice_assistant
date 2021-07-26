@@ -10,13 +10,15 @@ import smtplib
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 
-engine.setProperty('voice', voices[2].id)
+engine.setProperty('voice', voices[1].id)
 newVoiceRate = 145
 engine.setProperty('rate', newVoiceRate)
+
 
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
+
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
@@ -26,9 +28,10 @@ def wishMe():
         speak("Good Afternoon!")
     elif(hour >= 17 and hour < 20):
         speak("Good Evening!")
-    else: speak("Good Night!")
+    else:
+        speak("Good Evening!")
 
-    speak("I am Friday sir! Please tell me how may I help you?")
+    speak("I am your assistant sir! Please tell me how may I help you?")
 
 
 def takeCommand():
@@ -48,15 +51,17 @@ def takeCommand():
             return "none"
         return query
 
+
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-     
+
     # Enable low security in gmail
     server.login('abir97bd@gmail.com', 'password')
     server.sendmail('abir97bd@gmail.com', to, content)
     server.close()
+
 
 if __name__ == "__main__":
     wishMe()
@@ -76,7 +81,11 @@ if __name__ == "__main__":
         elif 'google' in query:
             speak("Opening Google...")
             webbrowser.open("google.com")
-    
+
+        elif 'github' in query:
+            speak("Opening Github...")
+            webbrowser.open("github.com")
+
         elif 'stack overflow' in query:
             speak("Opening stackoverflow...")
             webbrowser.open("stackoverflow.com")
@@ -86,7 +95,7 @@ if __name__ == "__main__":
             songs = os.listdir(music_dir)
             speak("Playing Music...")
             os.startfile(os.path.join(music_dir, songs[0]))
-    
+
         elif 'play videos' in query or 'play video' in query:
             video_dir = 'D:\\Video Songs'
             videos = os.listdir(video_dir)
@@ -129,34 +138,34 @@ if __name__ == "__main__":
                 sendEmail(to, conntent)
                 speak("Email has been sent !")
             except Exception as e:
-            # print(e)
+                # print(e)
                 speak("I am not able to send this email")
-        
+
         elif 'how are you' in query:
             speak("I am fine, Thank you")
             speak("How are you, Sir")
- 
+
         elif 'fine' in query or "good" in query:
             speak("It's good to know that your fine")
 
         elif 'friday' in query or 'are you here' in query or 'where are you' in query:
             speak("i am here! Please tell me how may I help you sir?")
-        
+
         elif "what's your name" in query or "What is your name" in query:
             speak("My friends call me friday sir!")
 
         elif 'search' in query:
             query = query.replace("search", "")
-            speak(f"searching {query}")     
+            speak(f"searching {query}")
             webbrowser.open(f"https://www.google.com/search?q={query}")
 
         elif 'facebook' in query or 'open facebook' in query:
-            speak("Openning Facebook")        
+            speak("Openning Facebook")
             webbrowser.open("https://www.facebook.com/")
 
         elif "who i am" in query:
             speak("If you talk then definitely your human.")
- 
+
         elif "why you came to world" in query:
             speak("Thanks to Rashed Khan. further It's a secret")
 
@@ -173,16 +182,16 @@ if __name__ == "__main__":
 
         elif 'yesterday' in query:
             today = datetime.date.today()
-            yesterday = today - datetime.timedelta(days = 1)
+            yesterday = today - datetime.timedelta(days=1)
             y = yesterday.strftime("%A, %d-%B-%Y")
             speak(f"yesterday was {y}")
 
         elif 'tomorrow' in query:
             today = datetime.date.today()
-            tomorrow = today + datetime.timedelta(days = 1)
+            tomorrow = today + datetime.timedelta(days=1)
             t = tomorrow.strftime("%A, %d-%B-%Y")
             speak(f"Tomorow is {t}")
-    
+
         elif 'exit' in query or 'bye' in query or 'see you later' in query:
             speak("Thanks for giving me your time sir.")
             exit()
